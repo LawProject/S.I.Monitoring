@@ -5,8 +5,8 @@
         <!-- Content Header (Page header) -->
         <div class="content-header">
             <div class="container-fluid">
-                <div class="row mb-2">
-                    <div class="col-sm-6">
+                <div class="row mb-2 ">
+                    {{-- <div class="col-sm-6">
                         <h1 class="m-0">Welcome {{ auth()->user()->name }}</h1>
                     </div><!-- /.col -->
                     <div class="col-sm-6">
@@ -14,7 +14,7 @@
                             <li class="breadcrumb-item"><a href="/">Home</a></li>
                             <li class="breadcrumb-item active">Dashboard </li>
                         </ol>
-                    </div><!-- /.col -->
+                    </div><!-- /.col --> --}}
                 </div><!-- /.row -->
             </div><!-- /.container-fluid -->
         </div>
@@ -26,8 +26,8 @@
                 <!-- Info boxes -->
                 <div class="row">
                     <div class="col-12 col-sm-6 col-md-3">
-                        <div class="info-box">
-                            <span class="info-box-icon bg-info elevation-1"><i class="fas fa-users"></i></span>
+                        <div class="info-box mb-3 bg-gradient-info">
+                            <span class="info-box-icon bg-light elevation-1"><i class="fas fa-users"></i></span>
 
                             <div class="info-box-content">
                                 <span class="info-box-text">Beasiswa Unggulan</span>
@@ -43,8 +43,8 @@
                     </div>
                     <!-- /.col -->
                     <div class="col-12 col-sm-6 col-md-3">
-                        <div class="info-box mb-3">
-                            <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-users"></i></span>
+                        <div class="info-box mb-3 bg-gradient-info">
+                            <span class="info-box-icon bg-light elevation-1"><i class="fas fa-users"></i></span>
 
                             <div class="info-box-content">
                                 <span class="info-box-text">Berdikari</span>
@@ -61,8 +61,8 @@
                     <!-- fix for small devices only -->
                     <div class="clearfix hidden-md-up"></div>
                     <div class="col-12 col-sm-6 col-md-3">
-                        <div class="info-box mb-3">
-                            <span class="info-box-icon bg-success elevation-1"><i class="fas fa-users"></i></span>
+                        <div class="info-box mb-3 bg-gradient-info">
+                            <span class="info-box-icon bg-light elevation-1"><i class="fas fa-users"></i></span>
                             <div class="info-box-content">
                                 <span class="info-box-text">Kip-Kuliah</span>
                                 <span class="info-box-number">{{ $kipkuliah }}
@@ -75,8 +75,8 @@
                     </div>
                     <!-- /.col -->
                     <div class="col-12 col-sm-6 col-md-3">
-                        <div class="info-box mb-3">
-                            <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-users"></i></span>
+                        <div class="info-box mb-3 bg-gradient-info">
+                            <span class="info-box-icon bg-light elevation-1"><i class="fas fa-users"></i></span>
 
                             <div class="info-box-content">
                                 <span class="info-box-text">Beasiswa BSI</span>
@@ -92,7 +92,7 @@
                     <!-- /.col -->
                     <div class="col-12 col-sm-6 col-md-6">
                         <div class="card">
-                            <div class="card-header bg-gradient-dark">Grafik Kegiatan </div>
+                            <div class="card-header bg-gradient-navy">Grafik Kegiatan </div>
                             <div class="card-body bg-gradient-light">
                                 <div id="Grafik">
                                     <canvas id="activityChart" width="400" height="200"></canvas>
@@ -102,7 +102,7 @@
                     </div>
                     <div class="col-12 col-sm-6 col-md-6">
                         <div class="card">
-                            <div class="card-header bg-gradient-dark">Grafik 10 Mahasiswa Teratas</div>
+                            <div class="card-header bg-gradient-pink">Grafik 10 Mahasiswa Teratas</div>
                             <div class="card-body bg-gradient-light">
                                 <canvas id="mahasiswaChart" width="400" height="200"></canvas>
                             </div>
@@ -147,7 +147,7 @@
                             label: 'Jumlah Kegiatan',
                             data: counts,
                             backgroundColor: backgroundColors,
-                            borderColor: 'rgba(0, 0, 0, 1)',
+                            // borderColor: 'rgba(0, 0, 0, 1)',
                             borderWidth: 1
                         }]
                     };
@@ -163,7 +163,10 @@
                             scales: {
                                 y: {
                                     beginAtZero: true,
-                                    stepSize: 1
+                                    ticks: {
+                                        stepSize: 1, // Mengatur jarak antara nilai pada sumbu Y
+                                        precision: 0 // Mengatur jumlah angka desimal yang ditampilkan
+                                    }
                                 }
                             }
                         }
@@ -187,7 +190,7 @@
                             label: 'Jumlah Kegiatan',
                             data: counts,
                             backgroundColor: 'rgba(0, 255, 0, 0.5)',
-                            borderColor: 'rgba(0, 0, 0, 1)',
+                            // borderColor: 'rgba(0, 0, 0, 1)',
                             borderWidth: 1
                         }]
                     };
@@ -202,7 +205,10 @@
                             scales: {
                                 y: {
                                     beginAtZero: true,
-                                    stepSize: 1
+                                    ticks: {
+                                        stepSize: 1, // Mengatur jarak antara nilai pada sumbu Y
+                                        precision: 0 // Mengatur jumlah angka desimal yang ditampilkan
+                                    }
                                 }
                             }
                         }
@@ -220,7 +226,7 @@
                                 label: 'Jumlah Kegiatan',
                                 data: data,
                                 backgroundColor: 'rgba(54, 162, 235, 0.5)',
-                                borderColor: 'rgba(0, 0, 0, 1',
+                                // borderColor: 'rgba(0, 0, 0, 1',
                                 borderWidth: 1
                             }]
                         },
@@ -229,7 +235,10 @@
                             scales: {
                                 y: {
                                     beginAtZero: true,
-                                    stepSize: 1
+                                    ticks: {
+                                        stepSize: 1, // Mengatur jarak antara nilai pada sumbu Y
+                                        precision: 0 // Mengatur jumlah angka desimal yang ditampilkan
+                                    }
                                 }
                             }
                         }

@@ -36,9 +36,11 @@
                                             <th scope="col" class="bg-gradient-olive">No</th>
                                             <th scope="col" class="bg-gradient-olive">Nama</th>
                                             <th scope="col" class="bg-gradient-olive">Jenis Kegiatan</th>
+                                            <th scope="col" class="bg-gradient-olive">Tanggal Kegiatan</th>
                                             <th scope="col" class="bg-gradient-olive">Pelaksana</th>
                                             <th scope="col" class="bg-gradient-olive">Foto Kegiatan</th>
                                             <th scope="col" class="bg-gradient-olive">Penanggung Jawab</th>
+                                            <th scope="col" class="bg-gradient-olive">Status</th>
                                             <th scope="col" class="bg-gradient-olive">Aksi</th>
                                         </tr>
                                     </thead>
@@ -49,9 +51,9 @@
                                         <tbody>
                                             <tr>
                                                 <td>{{ $index + $data->firstItem() }}</td>
-
-                                                <td>{{ $row->nama }}</td>
+                                                <td>{{ $row->user->name }}</td>
                                                 <td>{{ $row->jenis_kegiatan }}</td>
+                                                <td>{{ $row->tanggal_kegiatan }}</td>
                                                 <td>{{ $row->pelaksana }}</td>
                                                 <td>
                                                     <img src="{{ asset('fotokegiatan/' . $row->foto) }}" alt=""
@@ -59,16 +61,32 @@
                                                 </td>
                                                 <td>{{ $row->penanggung_jawab }}</td>
                                                 <td>
-                                                    <a href="detail/{{ $row->id }}" class="badge bg-info"><span
-                                                            data-feather="eye">Detail</span></a>
-                                                    <a href="" class="badge bg-danger"><span
-                                                            data-feather="eye">Hapus</span></a>
-
+                                                    @if ($row->status == 1)
+                                                        <span class="badge badge-success">Terverifikasi</span>
+                                                    @else
+                                                        <span class="badge badge-warning">Belum Verifikasi</span>
+                                                        <a href="{{ route('admin.verifikasiKegiatan', ['id' => $row->id]) }}"
+                                                            class="btn btn-primary">Verifikasi</a>
+                                                    @endif
+                                                </td>
+                                                <td>
+                                                    <a href="{{ route('admin.kegiatan.detail', $row->id) }}"
+                                                        class="btn btn-info">
+                                                        <i class="fas fa-edit"></i>
+                                                    </a>
+                                                    <form action="{{ route('admin.kegiatan.delete', $row->id) }}"
+                                                        method="POST" class="delete-form">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="btn btn-danger delete-btn"
+                                                            style="border: none; cursor: pointer;">
+                                                            <i class="fas fa-trash-alt"></i>
+                                                        </button>
+                                                    </form>
                                                 </td>
                                             </tr>
                                         </tbody>
                                     @endforeach
-
                                 </table>
                                 <br>
                                 {{ $data->links() }}
@@ -85,18 +103,37 @@
         <!-- /.content -->
     </div>
 
+    <!-- SweetAlert -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Menangkap semua form penghapusan
+            const deleteForms = document.querySelectorAll('.delete-form');
 
-    <!-- Control Sidebar -->
-    <aside class="control-sidebar control-sidebar-dark">
-        <!-- Control sidebar content goes here -->
-    </aside>
-    <!-- /.control-sidebar -->
-    </div>
-    <!-- ./wrapper -->
+            // Iterasi melalui setiap form penghapusan
+            deleteForms.forEach(function(form) {
+                form.addEventListener('submit', function(e) {
+                    e.preventDefault();
 
-    <!-- jQuery -->
-
-    </body>
-
-    </html>
+                    // Menampilkan SweetAlert konfirmasi hapus
+                    Swal.fire({
+                        title: 'Konfirmasi',
+                        text: 'Apakah Anda yakin ingin menghapus kegiatan ini?',
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#d33',
+                        cancelButtonColor: '#3085d6',
+                        confirmButtonText: 'Hapus',
+                        cancelButtonText: 'Batal'
+                    }).then((result) => {
+                        // Jika tombol Hapus diklik
+                        if (result.isConfirmed) {
+                            // Mengirimkan form penghapusan
+                            form.submit();
+                        }
+                    });
+                });
+            });
+        });
+    </script>
 @endsection

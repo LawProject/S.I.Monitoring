@@ -39,6 +39,10 @@
                                     <input type="text" name="password" class="form-control" id="exampleInputEmail1"
                                         aria-describedby="emailHelp">
                                 </div>
+                                <div class="mb-3">
+                                    <label for="foto">Foto</label>
+                                    <input type="file" class="form-control" name="foto" id="foto">
+                                </div>
                                 </select>
                         </div>
                     </div>

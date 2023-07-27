@@ -10,6 +10,7 @@ use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 use App\Models\Kegiatan;
 use App\Models\Mahasiswa;
+use App\Models\Organisasi;
 use App\Models\KegiatanOrganisasi;
 
 class User extends Authenticatable
@@ -27,6 +28,7 @@ class User extends Authenticatable
         'email',
         'password',
         'foto'
+
     ];
 
     /**
@@ -58,5 +60,23 @@ class User extends Authenticatable
     public function kegiatanOrganisasi()
     {
         return $this->hasMany(KegiatanOrganisasi::class, 'user_id', 'id');
+    }
+    public function organisasi()
+    {
+        return $this->hasOne(Organisasi::class);
+    }
+    protected static function booted()
+    {
+        static::created(function ($user) {
+            if ($user->hasRole('organisasi')) {
+                $nimOrganisasi = $user->nim;
+                $organisasi = Organisasi::where('nim', NULL)->first();
+
+                if ($organisasi) {
+                    $organisasi->user_id = $user->id;
+                    $organisasi->save();
+                }
+            }
+        });
     }
 }

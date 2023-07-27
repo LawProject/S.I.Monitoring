@@ -5,6 +5,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css"
         integrity="sha512-3pIirOrwegjM6erE5gPSwkUzO+3cTjpnV9lexlNZqvupR64iZBnOOTiiLPb9M36zpMScbmUNIcHUqKD47M719g=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css">
 @endpush
 @section('content')
     <div class="content-wrapper">
@@ -66,36 +67,48 @@
                             {{ $message }}
                         </div>
                     @endif
-                    <table class="table  table-dark table-striped">
-                        <thead>
-                            <tr>
-                                <th scope="col" class="bg-gradient-navy">No</th>
-                                <th scope="col" class="bg-gradient-navy">Nama Organisasi</th>
-                                <th scope="col" class="bg-gradient-navy">Nomor Induk Organisasi</th>
-                                <th scope="col" class="bg-gradient-navy">Email</th>
-                                <th scope="col" class="bg-gradient-navy">Aksi</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($users as $user)
-                                <tr>
-                                    <th scope="row">{{ $loop->iteration }}</th>
-                                    <td>{{ $user->name }}</td>
-                                    <td>{{ $user->nim }}</td>
-                                    <td>{{ $user->email }}</td>
-                                    <td>
-
-                                        <a href="/tampildatamhs/{{ $user->id }}" class="badge bg-info">Ubah</a>
-                                        <a href="#" type="button" class="badge bg-danger delete"
-                                            data-id="{{ $user->id }}" data-namamhs="{{ $user->name }}">Hapus</a>
-                                    </td>
-                                </tr>
-                            @endforeach
+                    <div class="card">
+                        <div class="card-header bg-secondary">
+                        </div>
+                        <div class="card-body">
 
 
-                        </tbody>
-                    </table>
-                    {{-- {{ $users->links() }} --}}
+                            <table class="table  table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th scope="col" class="bg-gradient-dark text-white">No</th>
+                                        <th scope="col" class="bg-gradient-dark text-white">Nama Organisasi</th>
+                                        <th scope="col" class="bg-gradient-dark text-white">Nomor Induk Organisasi</th>
+                                        <th scope="col" class="bg-gradient-dark text-white">Email</th>
+                                        <th scope="col" class="bg-gradient-dark text-white">Aksi</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($users as $user)
+                                        <tr>
+                                            <th scope="row">{{ $loop->iteration }}</th>
+                                            <td>{{ $user->name }}</td>
+                                            <td>{{ $user->nim }}</td>
+                                            <td>{{ $user->email }}</td>
+                                            <td>
+                                                {{-- <a href="/tampildatamhs/{{ $user->id }}" class="badge bg-info">Ubah</a> --}}
+                                                <form action="{{ route('admin.deleteuser', $user->id) }}" method="POST"
+                                                    id="deleteForm">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="badge bg-danger delete"
+                                                        data-id="{{ $user->id }}" data-name="{{ $user->name }}"
+                                                        onclick="deleteUser(event)">Hapus</button>
+
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                            {{-- {{ $users->links() }} --}}
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -103,6 +116,7 @@
 @endsection
 
 @push('scripts')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous">
     </script>
@@ -114,27 +128,27 @@
     </body>
 
     <script>
-        $('.delete').click(function() {
-            var mahasiswaid = $(this).attr('data-id');
-            var namamhs = $(this).attr('data-namamhs');
+        function deleteUser(event) {
+            event.preventDefault();
+            var form = event.target.form;
+            var id = form.querySelector('.delete').getAttribute('data-id');
+            var name = form.querySelector('.delete').getAttribute('data-name');
+
             swal({
-                    title: "Yakin?",
-                    text: "Kamu akan menghapus data mahasiswa dengan Nama " + namamhs + "",
-                    icon: "warning",
-                    buttons: true,
-                    dangerMode: true,
-                })
-                .then((willDelete) => {
-                    if (willDelete) {
-                        window.location = "/deletemhs/" + mahasiswaid + "";
-                        swal("Data Berhasil di Hapus!", {
-                            icon: "success",
-                        });
-                    } else {
-                        swal("Data tidak jadi dihapus");
-                    }
-                });
-        });
+                title: "Yakin?",
+                text: "Anda akan menghapus pengguna dengan nama " + name + "?",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            }).then((willDelete) => {
+                if (willDelete) {
+                    form.submit();
+                }
+            });
+        }
+        @if ($message = Session::get('success'))
+            toastr.success("{{ $message }}");
+        @endif
     </script>
 
     <script>

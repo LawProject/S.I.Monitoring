@@ -40,22 +40,23 @@
                                     <div class="form-group">
                                         <label for="text">Nama Organisasi</label>
                                         <input type="text" class="form-control" name="nama_org"
-                                            placeholder="Masukkan Nama Organisasi">
+                                            placeholder="Masukkan Nama Organisasi" value="{{ Auth::user()->name }}"
+                                            readonly>
                                     </div>
                                     <div class="form-group">
                                         <label for="text">Nama Kegiatan</label>
                                         <input type="text" class="form-control" name="nama_kegiatan"
-                                            placeholder="Masukkan Nama kegiatan">
+                                            placeholder="Masukkan Nama kegiatan" required>
                                     </div>
                                     <div class="form-group">
                                         <label for="text">Tempat Kegiatan</label>
                                         <input type="text" class="form-control" name="tempat_kegiatan"
-                                            placeholder="Tempat Kegiatan">
+                                            placeholder="Tempat Kegiatan" required>
                                     </div>
                                     <div class="form-group">
                                         <label for="text">Tanggal Kegiatan</label>
                                         <input type="date" class="form-control" name="tanggal_kegiatan"
-                                            placeholder="Masukkan Nama">
+                                            placeholder="Masukkan Nama" required>
                                     </div>
                                 </div>
                         </div>
@@ -71,23 +72,24 @@
                                     <div class="input-group">
                                         <div class="custom-file">
                                             <input type="file" class="custom-file-input" name="foto_kegiatan"
-                                                id="exampleInputFile">
-                                            <label class="custom-file-label" for="exampleInputFile">Choose file</label>
+                                                placeholder="Masukkan Foto" id="exampleInputFile" required>
+                                            <label class="custom-file-label" for="exampleInputFile"></label>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="text">Pelaksana</label>
-                                    <input type="text" class="form-control" name="pelaksana" placeholder="Masukkan Nama">
+                                    <input type="text" class="form-control" name="pelaksana" placeholder="Masukkan Nama"
+                                        required>
                                 </div>
                                 <div class="form-group">
                                     <label for="text">Penanggung Jawab</label>
                                     <input type="text" class="form-control" name="penanggung_jawab"
-                                        placeholder="Penanggung Jawab">
+                                        placeholder="Penanggung Jawab" required>
                                 </div>
                                 <div class="form-group">
                                     <label for="text">Deskripsi</label>
-                                    <textarea class="form-control" name="deskripsi" placeholder="Masukkan Deskripsi"></textarea>
+                                    <textarea class="form-control" name="deskripsi" placeholder="Masukkan Deskripsi" required></textarea>
                                 </div>
                             </div>
                             <!-- /.card-body -->

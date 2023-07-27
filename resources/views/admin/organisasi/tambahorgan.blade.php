@@ -19,6 +19,11 @@
                                         aria-describedby="emailHelp">
                                 </div>
                                 <div class="mb-3">
+                                    <label for="exampleInputEmail1" class="form-label">Nomo Induk Organisasi</label>
+                                    <input type="text" name="nim" class="form-control" id="exampleInputEmail1"
+                                        aria-describedby="emailHelp">
+                                </div>
+                                <div class="mb-3">
                                     <label for="exampleInputEmail1" class="form-label">Ketua Umum</label>
                                     <input type="text" name="ketua" class="form-control" id="exampleInputEmail1"
                                         aria-describedby="emailHelp">

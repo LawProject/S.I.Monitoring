@@ -20,7 +20,9 @@ class KegiatanOrganisasi extends Model
         'pelaksana',
         'penanggung_jawab',
         'deskripsi',
-        'user_id' // tambahkan kolom 'user_id' ke dalam $fillable
+        'organisasi_id',
+        'user_id', // tambahkan kolom 'user_id' ke dalam $fillable
+        'status_verifikasi',
     ];
     public function user()
     {

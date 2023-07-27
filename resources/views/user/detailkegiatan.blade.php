@@ -7,7 +7,6 @@
                 <div class="row mb-2">
                     <div class="col-sm-6">
                         <h1>Anda sedang melihat data dari {{ $data->nama }}</h1>
-
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
@@ -23,43 +22,55 @@
             </div>
             <!-- /.card-header -->
             <div class="card-body">
-                <table id="example2" class="table table-bordered table-hover">
-                    <thead>
-                        <tr>
-
-                            <th scope="col">Nama</th>
-                            <th scope="col">Foto Kegiatan</th>
-                            <th scope="col">Jenis Kegiatan</th>
-                            <th scope="col">Pelaksana</th>
-
-                            <th scope="col">Penanggung Jawab</th>
-                            <th scope="col">Aksi</th>
-                        </tr>
-                    </thead>
-
-                    <tbody>
-
-
-                        <td>{{ $data->nama }}</td>
-                        <td>
-                            <img src="{{ asset('fotokegiatan/' . $data->foto) }}" alt="" style="width: 200px">
-                        </td>
-                        <td>{{ $data->jenis_kegiatan }}</td>
-                        <td>{{ $data->pelaksana }}</td>
-
-                        <td>{{ $data->penanggung_jawab }}</td>
-                        <td>
-
-                            <a href="" class="badge bg-danger"><span data-feather="eye">Edit</span></a>
-
-                        </td>
-
-                    </tbody>
-
-
-                </table>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="text-center">
+                            <a href="{{ asset('fotokegiatan/' . $data->foto) }}" target="_blank">
+                                <img src="{{ asset('fotokegiatan/' . $data->foto) }}" alt=""
+                                    style="width: 200px; cursor: pointer;" class="img-thumbnail" data-toggle="modal"
+                                    data-target="#modalFotoKegiatan">
+                            </a>
+                        </div>
+                        <div class="mt-4">
+                            <h2 class="text-center">{{ $data->nama }}</h2>
+                            <p class="text-center mb-3">Jenis Kegiatan: {{ $data->jenis_kegiatan }}</p>
+                            <div class="d-flex justify-content-center">
+                                <div class="mr-4">
+                                    <p><strong>Pelaksana:</strong> {{ $data->pelaksana }}</p>
+                                </div>
+                                <div class="ml-4">
+                                    <p><strong>Penanggung Jawab:</strong> {{ $data->penanggung_jawab }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                        <div>
+                            <h3 class="mb-3">Deskripsi Kegiatan</h3>
+                            <p>{{ $data->deskripsi_kegiatan }}</p>
+                        </div>
+                    </div>
+                </div>
             </div>
             <!-- /.card-body -->
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="modalFotoKegiatan" tabindex="-1" role="dialog" aria-labelledby="modalFotoKegiatanLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalFotoKegiatanLabel">Foto Kegiatan</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <img src="{{ asset('fotokegiatan/' . $data->foto) }}" alt="" style="width: 100%;"
+                        class="img-fluid">
+                </div>
+            </div>
         </div>
     </div>
 @endsection

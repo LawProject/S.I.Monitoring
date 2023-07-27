@@ -41,6 +41,7 @@
                                             <th scope="col" class="bg-gradient-navy">Foto Kegiatan</th>
                                             <th scope="col" class="bg-gradient-navy">Pelaksana</th>
                                             <th scope="col" class="bg-gradient-navy">Penanggung Jawab</th>
+                                            <th scope="col" class="bg-gradient-navy">Status</th>
                                             <th scope="col" class="bg-gradient-navy">Aksi</th>
                                         </tr>
                                     </thead>
@@ -51,7 +52,7 @@
                                         @foreach ($kegiatanOrganisasi as $kegiatan)
                                             <tr>
                                                 <td>{{ $no++ }}</td>
-                                                <td>{{ $kegiatan->nama_org }}</td>
+                                                <td>{{ Auth::user()->name }}</td>
                                                 <td>{{ $kegiatan->nama_kegiatan }}</td>
                                                 <td>{{ $kegiatan->tempat_kegiatan }}</td>
                                                 <td>{{ $kegiatan->tanggal_kegiatan }}</td>
@@ -62,14 +63,22 @@
                                                 <td>{{ $kegiatan->pelaksana }}</td>
                                                 <td>{{ $kegiatan->penanggung_jawab }}</td>
                                                 <td>
-                                                    <a href="#" class="badge bg-info"><span data-feather="eye"></span>
+                                                    @if ($kegiatan->status_verifikasi == 1)
+                                                        <span class="badge badge-success">Terverifikasi</span>
+                                                    @else
+                                                        <span class="badge badge-warning">Belum Verifikasi</span>
+                                                    @endif
+                                                </td>
+                                                <td>
+                                                    <a href="{{ route('organisasi.detailuserOrg', [$kegiatan->id]) }}"
+                                                        class="badge bg-info"><span data-feather="eye"></span>
                                                         Detail</a>
-                                                    <a href="#" class="badge bg-warning"><span
+                                                    {{-- <a href="#" class="badge bg-warning"><span
                                                             data-feather="edit"></span>
                                                         Edit</a>
                                                     <a href="#" class="badge bg-danger"><span
                                                             data-feather="trash"></span>
-                                                        Hapus</a>
+                                                        Hapus</a> --}}
                                                 </td>
                                             </tr>
                                         @endforeach

@@ -37,9 +37,11 @@
                                             <th scope="col" class="bg-gradient-navy">No</th>
                                             <th scope="col" class="bg-gradient-navy">Nama</th>
                                             <th scope="col" class="bg-gradient-navy">Jenis Kegiatan</th>
+                                            <th scope="col" class="bg-gradient-navy">Tanggal Kegiatan</th>
                                             <th scope="col" class="bg-gradient-navy">Pelaksana</th>
                                             <th scope="col" class="bg-gradient-navy">Foto Kegiatan</th>
                                             <th scope="col" class="bg-gradient-navy">Penanggung Jawab</th>
+                                            <th scope="col" class="bg-gradient-navy">Status</th>
                                             <th scope="col" class="bg-gradient-navy">Aksi</th>
                                         </tr>
                                     </thead>
@@ -50,8 +52,9 @@
                                         @foreach ($data as $row)
                                             <tr>
                                                 <td>{{ $no++ }}</td>
-                                                <td>{{ $row->nama }}</td>
+                                                <td>{{ Auth::user()->name }}</td>
                                                 <td>{{ $row->jenis_kegiatan }}</td>
+                                                <td>{{ $row->tanggal_kegiatan }}</td>
                                                 <td>{{ $row->pelaksana }}</td>
                                                 <td>
                                                     <img src="{{ asset('fotokegiatan/' . $row->foto) }}" alt=""
@@ -59,12 +62,19 @@
                                                 </td>
                                                 <td>{{ $row->penanggung_jawab }}</td>
                                                 <td>
+                                                    @if ($row->status == 1)
+                                                        <span class="badge badge-success">Terverifikasi</span>
+                                                    @else
+                                                        <span class="badge badge-warning">Belum Verifikasi</span>
+                                                    @endif
+                                                </td>
+                                                <td>
                                                     <a href="detail/{{ $row->id }}" class="badge bg-info"><span
                                                             data-feather="eye"></span> Detail</a>
-                                                    <a href="#" class="badge bg-warning"><span
+                                                    {{-- <a href="#" class="badge bg-warning"><span
                                                             data-feather="edit"></span> Edit</a>
                                                     <a href="#" class="badge bg-danger"><span
-                                                            data-feather="trash"></span> Hapus</a>
+                                                            data-feather="trash"></span> Hapus</a> --}}
                                                 </td>
                                             </tr>
                                         @endforeach

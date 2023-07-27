@@ -23,8 +23,8 @@
                 <!-- /.row -->
                 <div class="row">
                     <div class="col-12 col-sm-6 col-md-3">
-                        <div class="info-box">
-                            <span class="info-box-icon bg-gradient-danger elevation-1"><i class="fas fa-users"></i></span>
+                        <div class="info-box bg-gradient-primary">
+                            <span class="info-box-icon bg-gradient-light elevation-1"><i class="fas fa-users"></i></span>
                             <div class="info-box-content">
                                 <span class="info-box-text">Keg.Organisasi</span>
                                 <span class="info-box-number">
@@ -37,8 +37,8 @@
                         <!-- /.info-box -->
                     </div>
                     <div class="col-12 col-sm-6 col-md-3">
-                        <div class="info-box mb-3">
-                            <span class="info-box-icon bg-gradient-warning elevation-1"><i class="fas fa-users"></i></span>
+                        <div class="info-box bg-gradient-primary">
+                            <span class="info-box-icon bg-gradient-light elevation-1"><i class="fas fa-users"></i></span>
                             <div class="info-box-content">
                                 <span class="info-box-text">Keg.Akademik</span>
                                 <span class="info-box-number">
@@ -51,8 +51,8 @@
                         <!-- /.info-box -->
                     </div>
                     <div class="col-12 col-sm-6 col-md-3">
-                        <div class="info-box">
-                            <span class="info-box-icon bg-gradient-success elevation-1"><i class="fas fa-users"></i></span>
+                        <div class="info-box bg-gradient-primary">
+                            <span class="info-box-icon bg-gradient-light elevation-1"><i class="fas fa-users"></i></span>
                             <div class="info-box-content">
                                 <span class="info-box-text">Keg.YHC</span>
                                 <span class="info-box-number">
@@ -65,7 +65,7 @@
                         <!-- /.info-box -->
                     </div>
                     <div class="col-12 col-sm-6 col-md-3">
-                        <div class="info-box">
+                        <div class="info-box bg-gradient-primary">
                             <span class="info-box-icon bg-gradient-light elevation-1"><i class="fas fa-users"></i></span>
                             <div class="info-box-content">
                                 <span class="info-box-text">Keg.Politeknik Hasnur</span>
@@ -79,8 +79,8 @@
                         <!-- /.info-box -->
                     </div>
                     <div class="col-12 col-sm-6 col-md-3">
-                        <div class="info-box">
-                            <span class="info-box-icon bg-secondary elevation-1"><i class="fas fa-users"></i></span>
+                        <div class="info-box bg-gradient-primary">
+                            <span class="info-box-icon bg-light elevation-1"><i class="fas fa-users"></i></span>
                             <div class="info-box-content">
                                 <span class="info-box-text">Keg.Program Studi</span>
                                 <span class="info-box-number">
@@ -93,8 +93,8 @@
                         <!-- /.info-box -->
                     </div>
                     <div class="col-12 col-sm-6 col-md-3">
-                        <div class="info-box">
-                            <span class="info-box-icon bg-gradient-olive elevation-1"><i class="fas fa-users"></i></span>
+                        <div class="info-box bg-gradient-primary">
+                            <span class="info-box-icon bg-gradient-light elevation-1"><i class="fas fa-users"></i></span>
                             <div class="info-box-content">
                                 <span class="info-box-text">Keg.Donatur Beasiswa</span>
                                 <span class="info-box-number">
@@ -107,8 +107,8 @@
                         <!-- /.info-box -->
                     </div>
                     <div class="col-12 col-sm-6 col-md-3">
-                        <div class="info-box">
-                            <span class="info-box-icon bg-gradient-primary elevation-1"><i class="fas fa-users"></i></span>
+                        <div class="info-box bg-gradient-primary">
+                            <span class="info-box-icon bg-gradient-light elevation-1"><i class="fas fa-users"></i></span>
                             <div class="info-box-content">
                                 <span class="info-box-text">Keg.BaktiBanua</span>
                                 <span class="info-box-number">
@@ -121,7 +121,7 @@
                         <!-- /.info-box -->
                     </div>
                 </div>
-                <h2 style="background: #1f1d1d;; padding: 10px; display: inline-block; border-radius: 10px;"><b>Log
+                <h2 style="background: #6dc8ad;; padding: 10px; display: inline-block; border-radius: 10px;"><b>Log
                         Post</b></h2>
                 <div class="mt-2">
                     <table class="table" style="border-radius: 50px;">

@@ -46,12 +46,24 @@
                                     <input type="text" name="nik" class="form-control" id="exampleInputEmail1"
                                         aria-describedby="emailHelp" value="{{ $data->nik }}">
                                 </div>
-                                <div class="mb-3">
+                                {{-- <div class="mb-3">
                                     <label for="exampleInputEmail1" class="form-label">Status Mahasiswa</label>
                                     <select class="form-select" name="status" aria-label="Default select example">
                                         <option selected>Pilih Status</option>
                                         <option value="aktive">aktive</option>
                                         <option value="tidak_aktive">tidak_aktive</option>
+                                    </select>
+                                </div> --}}
+                                <div class="mb-3">
+                                    <label for="exampleInputEmail1" class="form-label">Semester</label>
+                                    <select class="form-select" name="semester" aria-label="Default select example">
+                                        <option selected>Pilih Semester</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                        <option value="6">6</option>
                                     </select>
                                 </div>
                                 <button type="submit" class="btn btn-primary">Submit</button>

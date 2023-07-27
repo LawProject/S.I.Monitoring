@@ -61,6 +61,18 @@
                                         <option value="tidak_aktive">tidak_aktive</option>
                                     </select>
                                 </div>
+                                <div class="mb-3">
+                                    <label for="exampleInputEmail1" class="form-label">Semester</label>
+                                    <select class="form-select" name="semester" aria-label="Default select example">
+                                        <option selected>1</option>
+                                        <option value="1">1</option>
+                                        <option value="2">3</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                        <option value="6">6</option>
+                                    </select>
+                                </div>
                                 <button type="submit" class="btn btn-primary">Submit</button>
                             </form>
                         </div>

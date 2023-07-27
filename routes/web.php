@@ -30,20 +30,26 @@ Route::get('/', function () {
 
 Auth::routes();
 // Rute untuk menampilkan halaman register
-Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register');
+// Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register');
 // Rute untuk melakukan proses registrasi
-Route::post('/register', [RegisterController::class, 'register']);
+// Route::post('/register', [RegisterController::class, 'register']);
 Route::middleware('role:admin')->name('admin.')->prefix('admin')->group(function () {
-    Route::get('/home', [AdminController::class, 'index'])->name('admin.index')->middleware('auth');
+    Route::get('/home', [AdminController::class, 'index'])->name('index')->middleware('auth');
     Route::get('/kegiatan', [AdminController::class, 'kegiatan'])->name('kegiatan');
     Route::get('/kegiatanorg', [AdminController::class, 'kegiatanorg'])->name('kegiatanorg');
     //Mahasiswa
+    Route::get('filter', [MahasiswaController::class, 'filter'])->name('filter');
+    Route::post('/mahasiswa/{id}/mark', [MahasiswaController::class, 'mark'])->name('mark');
     Route::get('/mahasiswa', [MahasiswaController::class, 'index'])->name('mahasiswa');
     Route::get('/tambahmhs', [MahasiswaController::class, 'tambahmhs'])->name('tambahmhs');
     Route::post('/tambah', [MahasiswaController::class, 'tambah'])->name('tambah');
     Route::get('/tampildatamhs/{id}', [MahasiswaController::class, 'tampildatamhs'])->name('tampildatamhs');
     Route::post('updatemhs/{id}', [MahasiswaController::class, 'updatemhs'])->name('updatemhs');
-    Route::get('deletemhs/{id}', [MahasiswaController::class, 'deletemhs'])->name('deletemhs');
+    Route::delete('deletemhs/{id}', [MahasiswaController::class, 'deletemhs'])->name('deletemhs');
+    Route::delete('/hapussemuadata', [MahasiswaController::class, 'hapusSemuaData'])->name('hapussemuadata');
+    Route::put('/mahasiswa/update-filtered', [MahasiswaController::class, 'updateFiltered'])->name('updateFiltered');
+
+    // Route::get('updatesemester', [MahasiswaController::class, 'delupdatesemesteretemhs'])->name('updatesemester');
     //eksport PDF
     Route::get('/eksportpdf', [MahasiswaController::class, 'eksportpdf'])->name('eksportpdf');
     //ekspor EXCEL
@@ -60,9 +66,20 @@ Route::middleware('role:admin')->name('admin.')->prefix('admin')->group(function
     Route::get('/tampildataorg/{id}', [OrganisasiController::class, 'tampildataorg'])->name('tampildataorg');
     Route::post('/ubahdataorg/{id}', [OrganisasiController::class, 'ubahdataorg'])->name('ubahdataorg');
     Route::post('/updateorg/{id}', [OrganisasiController::class, 'updateorg'])->name('updateorg');
-    Route::get('/deleteorg/{id}', [OrganisasiController::class, 'deleteorg'])->name('deleteorg');
+    Route::delete('/deleteorg/{id}', [OrganisasiController::class, 'deleteorg'])->name('deleteorg');
     Route::resource('user', AdminUserController::class);
     Route::get('/tambahuser', [AdminUserController::class, 'tambahuser'])->name('tambahuser');
+    Route::delete('/deleteuser{id}', [AdminUserController::class, 'deleteuser'])->name('deleteuser');
+    Route::post('/importUser', [AdminUserController::class, 'importUser'])->name('importUser');
+    Route::get('/kegiatan-mahasiswa/{id}', [AdminController::class, 'verifikasiKegiatan'])->name('verifikasiKegiatan');
+    Route::get('/kegiatan-organisasi/{id}/verify', [AdminController::class, 'verify'])->name('verify');
+
+    Route::get('detail/{id}', [AdminController::class, 'detailKegiatan'])->name('kegiatan.detail');
+    Route::delete('kegiatan/{id}', [AdminController::class, 'deleteKegiatan'])->name('kegiatan.delete');
+    // Route::get('/kegiatan-mahasiswa/tolak/{id}', [AdminController::class, 'tolakKegiatan'])->name('tolakKegiatan');
+    Route::get('detail-org/{id}', [AdminController::class, 'detailKegiatanOrg'])->name('detailKegiatanOrg');
+    Route::delete('kegiatan-org/{id}', [AdminController::class, 'deleteKegiatanOrg'])->name('deleteKegiatanOrg');
+
     //ekspor PDF
     Route::get('/eksportpdforg', [OrganisasiController::class, 'eksportpdforg'])->name('eksportpdforg');
     Route::get('/userOrgansiasi', [UserOrganisasiController::class, 'index'])->name('userOrgansiasi')->middleware('auth');
@@ -88,4 +105,7 @@ Route::middleware(['auth', 'role:organisasi'])->name('organisasi.')->prefix('org
     Route::get('/kegiatanorg', [RoleOrganisasiController::class, 'kegiatanorg'])->name('kegiatanorg');
     Route::get('/upload', [RoleOrganisasiController::class, 'upload'])->name('upload');
     Route::post('/tambahkegiatanorg', [RoleOrganisasiController::class, 'tambahkegiatanorg'])->name('tambahkegiatanorg');
+    Route::get('/detailuserOrg/{id}', [RoleOrganisasiController::class, 'detailuserOrg'])->name('detailuserOrg');
+
+    Route::get('/profil', [RoleOrganisasiController::class, 'profil'])->name('profil');
 });

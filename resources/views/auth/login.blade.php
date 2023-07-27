@@ -18,7 +18,9 @@
 </head>
 
 <body class="hold-transition login-page">
-    {{-- <h1>SISTEM INFORMASI MONITORING MAHASISWA</h1> --}}
+    <h1>Sistem Informasi Monitoring Kegiatan Organisasi</h1>
+    <h1>Mahasiswa Politeknik Hasnur</h1>
+
     {{-- <div class="col-12 col-sm-6 col-md-8"> --}}
     <div class="login-box">
 
@@ -26,7 +28,7 @@
 
         <div class="card card-outline card-primary">
             <div class="card-header text-center">
-                <a href="{{ asset('AdminLTE/bg1.png') }}" class="h1"><b>SAMA</b></a>
+                <a href="{{ asset('AdminLTE/bg1.png') }}" class="h1"><b>S.I Monitoring</b></a>
             </div>
             <div class="card-body">
                 <p class="login-box-msg">Silahkan Login</p>
@@ -53,12 +55,12 @@
 
                         <!-- /.col -->
                         <div class="col-4">
-                            <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+                            <button type="submit" class="btn btn-primary btn-block">Login</button>
                         </div>
                         <!-- /.col -->
                     </div>
                 </form>
-                <a href="{{ route('register') }}" class="text-center">Registrasi</a>
+                {{-- <a href="{{ route('register') }}" class="text-center">Registrasi</a> --}}
 
                 <!-- /.social-auth-links -->
 

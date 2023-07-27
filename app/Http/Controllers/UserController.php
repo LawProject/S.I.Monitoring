@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Models\Mahasiswa;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
@@ -23,7 +24,7 @@ class UserController extends Controller
         $mudabanua = Kegiatan::where('user_id', $user->id)->where('jenis_kegiatan', 'BaktiBanua')->count();
         $donatur = Kegiatan::where('user_id', $user->id)->where('jenis_kegiatan', 'DonaturBeasiswa')->count();
 
-        return view('user.dashboard', compact('akademik', 'organisasi', 'logKeg', 'YHC', 'polhas', 'prodi', 'mudabanua', 'donatur'));
+        return view('user.dashboard', compact('akademik', 'organisasi', 'logKeg', 'YHC', 'polhas', 'prodi', 'mudabanua', 'donatur', 'user'));
     }
 
     public function kegiatanmhs()
@@ -40,35 +41,47 @@ class UserController extends Controller
 
     public function tambahKegiatanMhs(Request $request)
     {
+
         $user = Auth::user();
+        $username = $user->username; // Mengambil username dari user yang sedang login
 
         $data = new Kegiatan($request->all());
         $data->user_id = $user->id;
+        $data->nama = $username; // Mengisi kolom "nama" dengan username
+        $data->status = 0; // Set status kegiatan menjadi "0" (belum diverifikasi)
 
         if ($request->hasFile('foto')) {
             $request->file('foto')->move('fotokegiatan/', $request->file('foto')->getClientOriginalName());
             $data->foto = $request->file('foto')->getClientOriginalName();
         }
+
+        // Tambahkan kode berikut untuk menentukan nilai 'mahasiswa_id'
+        $mahasiswa = $user->mahasiswa;
+        $data->mahasiswa_id = $mahasiswa->id;
+
         $data->save();
 
-        // // Cek jumlah kegiatan pengguna
-        // $jumlahKegiatan = $user->kegiatan()->count();
-
-        // // Perbarui status mahasiswa berdasarkan jumlah kegiatan
-        // $mahasiswa = $user->mahasiswa;
-        // $mahasiswa->status = ($jumlahKegiatan >= 5) ? 'aktif' : 'tidak aktif';
-        // $mahasiswa->save();
         return redirect()->route('user.kegiatanmhs')->with('success', 'Data Berhasil di Tambahkan');
     }
+
+
+
     public function show($id)
     {
         $data = Kegiatan::findOrFail($id);
         return view('user.detailkegiatan', ['data' => $data]);
     }
-    public function profile(User $user)
+    public function profile()
     {
-        return view('user.profile', compact('user'));
+        $user = Auth::user();
+        $grafikuser = Kegiatan::select('jenis_kegiatan as jenis',  DB::raw('COUNT(kegiatans.id) as count'))
+            ->where('user_id', $user->id)
+            ->groupBy('jenis_kegiatan')
+            ->get();
+        // dd($userActivities);
+        return view('user.profile', compact('user', 'grafikuser'));
     }
+
     public function updateProfile(Request $request, $id)
     {
         $user = User::findOrFail($id);
@@ -77,11 +90,30 @@ class UserController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users,email,' . $user->id,
-            'password' => 'nullable|string|min:8',
+            'foto' => 'nullable|image|mimes:jpeg,png,jpg|max:2048', // Validasi untuk foto (opsional)
         ]);
 
         $user->name = $request->input('name');
         $user->email = $request->input('email');
+
+        // Periksa apakah ada file foto yang diunggah
+        if ($request->hasFile('foto')) {
+            // Menghapus foto lama (jika ada)
+            if ($user->foto) {
+                $fotoPath = public_path('foto/' . $user->foto);
+                if (file_exists($fotoPath)) {
+                    unlink($fotoPath);
+                }
+            }
+
+            // Mengunggah foto baru
+            $foto = $request->file('foto');
+            $fotoName = time() . '_' . $foto->getClientOriginalName();
+            $foto->move(public_path('foto'), $fotoName);
+
+            // Simpan nama file foto baru ke dalam atribut 'foto' pada model User
+            $user->foto = $fotoName;
+        }
 
         // Periksa apakah ada perubahan password yang dimasukkan
         $password = $request->input('password');
